@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+:root {
+  --puratos-bg: #FDF8F5; /* Warm beige */
+  --puratos-burgundy: #6B1C23; /* Dark red */
+  --puratos-orange: #D68B35;
+  --puratos-yellow: #E2B240;
+  --puratos-white: #FFFFFF;
+  --puratos-gray: #E8E2DE;
+  --text-main: #333333;
+  --text-light: #777777;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--puratos-bg);
+  color: var(--text-main);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
