@@ -1,91 +1,94 @@
 import React from 'react';
 
-const ResultScreen = ({ answers, onRestart }) => {
-  let profile = {
-    type: "Balanced Energy",
-    product: "Muffin funcional",
-    message: "Te da saciedad y energía sin exceso.",
-    booth: "Disfrutar Mejor",
-    badgeClass: "orange",
-    productImg: "🧁"
-  };
+const PROFILES = {
+  balanced: {
+    type: 'Balanced Energy',
+    product: 'Muffin Funcional',
+    message: 'Energía sostenida y saciedad sin excesos. La combinación perfecta para tu día en el evento.',
+    booth: 'Disfrutar Mejor',
+    emoji: '🧁',
+  },
+  light: {
+    type: 'Light & Smart',
+    product: 'Snack Clean Label',
+    message: 'Pequeño en tamaño, grande en nutrición. Perfecto para comer mejor sin sacrificar sabor.',
+    booth: 'Disfrutar Mejor',
+    emoji: '🍪',
+  },
+  indulgent: {
+    type: 'Smart Indulgent',
+    product: 'Mini Brownie Protein',
+    message: 'El mismo placer de siempre, con más proteína y fibra por cada bocado.',
+    booth: 'Disfrutar Mejor',
+    emoji: '🍫',
+  },
+};
 
-  // Logic based on requirements
-  if (answers.includes('energia') || answers.includes('normal')) {
-    profile = {
-      type: "Balanced Energy",
-      product: "Muffin funcional",
-      message: "Te da saciedad y energía sin exceso.",
-      booth: "Disfrutar Mejor",
-      badgeClass: "orange",
-      productImg: "🧁"
-    };
-  }
-
-  if (answers.includes('poco') || answers.includes('natural') || answers.includes('bajo_azucar')) {
-    profile = {
-      type: "Light & Smart",
-      product: "Snack pequeño clean label",
-      message: "Perfecto para comer menos pero mejor.",
-      booth: "Disfrutar Mejor",
-      badgeClass: "orange",
-      productImg: "🍪"
-    };
-  }
-
-  if (answers.includes('indulgencia') || answers.includes('snacks')) {
-    profile = {
-      type: "Smart Indulgent",
-      product: "Mini brownie protein + fiber",
-      message: "Mismo placer, más nutrición por bocado.",
-      booth: "Disfrutar Mejor",
-      badgeClass: "", // Defaults to burgundy
-      productImg: "🍫"
-    };
-  }
+const ResultScreen = ({ profile: profileKey, onRestart }) => {
+  const profile = PROFILES[profileKey] || PROFILES.balanced;
 
   return (
-    <div className="screen" style={{ justifyContent: 'space-between' }}>
-      <div className="top-header">
-        <div className="puratos-logo-text" style={{fontSize: '1.5rem'}}>Puratos</div>
+    <div className="screen">
+      {/* Backgrounds */}
+      <div className="result-screen-bg">
+        <div className="result-screen-bg-gradient" />
+        <div className="result-confetti-layer" />
       </div>
 
-      <div className="result-content">
-        <h2 className="title-main" style={{fontSize: '1.8rem', marginBottom: '1.5rem'}}>Tu mejor opción es...</h2>
-        
-        <div className={`result-badge ${profile.badgeClass}`}>
-          <span style={{background: 'white', borderRadius: '50%', padding: '2px', display: 'flex'}}>✅</span> 
-          {profile.type}
-        </div>
-        
-        <div className="result-card-inner">
-          <div className="result-text-block">
-            <h3 className="result-product">{profile.product}</h3>
-            <p className="result-desc">{profile.message}</p>
+      {/* Header */}
+      <div className="top-header">
+        <div className="tt-logo-container">
+          <img src="/unicorn-white.png" className="tt-unicorn-icon" alt="Puratos Unicorn" />
+          <div className="tt-brand-name">
+            <span className="tt-brand-taste">taste</span>
+            <span className="tt-brand-tomorrow">Tomorrow</span>
           </div>
-          <div className="result-product-img">{profile.productImg}</div>
         </div>
+        <div className="header-badge">Tu resultado</div>
+      </div>
 
-        <div className="location-bar">
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
-            <span style={{fontSize: '0.9rem', color: 'var(--text-light)'}}>Encuéntralo en la estación 📍</span>
-            <span style={{color: 'var(--puratos-burgundy)', fontWeight: '800', fontSize: '1.2rem'}}>{profile.booth}</span>
+      {/* Two-column body */}
+      <div className="result-body">
+
+        {/* LEFT — text info */}
+        <div className="result-left">
+          <div className="result-profile-badge">
+            <span className="dot" />
+            {profile.type}
           </div>
-          <img src="/robot.png" style={{width: '60px', height: '60px', objectFit: 'contain', marginLeft: 'auto'}} alt="Purabot" />
+
+          <p className="result-headline">Tu mejor opción es</p>
+          <h2 className="result-product-name">{profile.product}</h2>
+          <p className="result-desc">{profile.message}</p>
+
+          <div className="result-location-card">
+            <div className="result-location-inner">
+              <span className="result-location-label">Encuéntralo en la estación</span>
+              <span className="result-location-value">📍 {profile.booth}</span>
+            </div>
+            <div className="result-location-pin">
+              <img
+                src="/unicorn-white.png"
+                style={{ width: '20px', height: '20px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+                alt="Puratos"
+              />
+            </div>
+          </div>
+
+          <button className="restart-btn" onClick={onRestart} style={{ marginTop: 'clamp(0.8rem, 1.5vh, 1.5rem)' }}>
+            ↩ Volver a empezar
+          </button>
         </div>
 
-        <div style={{display: 'flex', gap: '1rem', width: '100%', maxWidth: '500px', marginTop: '2rem'}}>
-          <button className="btn-pill btn-burgundy" style={{flex: 1, padding: '1rem'}} onClick={() => alert("Imprimiendo...")}>
-            🖨️ Imprimir
-          </button>
-          <button className="btn-pill btn-orange" style={{flex: 1, padding: '1rem'}} onClick={() => alert("Mostrando QR...")}>
-            📱 QR
-          </button>
+        {/* RIGHT — emoji product visual */}
+        <div className="result-right">
+          <div className="result-product-visual">
+            <span style={{ position: 'relative', zIndex: 1, filter: 'drop-shadow(0 16px 30px rgba(0,0,0,0.4))' }}>
+              {profile.emoji}
+            </span>
+          </div>
         </div>
 
-        <button className="restart-btn" onClick={onRestart}>
-          Volver a empezar
-        </button>
       </div>
     </div>
   );

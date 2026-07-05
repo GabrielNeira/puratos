@@ -2,27 +2,30 @@ import React, { useState } from 'react';
 
 const questions = [
   {
-    title: "1. ¿Qué buscas hoy?",
+    eyebrow: 'Pregunta 1 de 3',
+    title: '¿Qué buscas hoy?',
     options: [
-      { id: 'energia', label: 'Energía', icon: '⚡' },
-      { id: 'saciedad', label: 'Saciedad', icon: '🔋' },
-      { id: 'indulgencia', label: 'Indulgencia', icon: '❤️' }
+      { id: 'energia',     label: 'Energía',      sublabel: 'Activo y concentrado',    icon: '⚡' },
+      { id: 'saciedad',    label: 'Saciedad',     sublabel: 'Alimentarme bien',         icon: '🔋' },
+      { id: 'indulgencia', label: 'Indulgencia',  sublabel: 'Un premio merecido',       icon: '❤️' },
     ]
   },
   {
-    title: "2. ¿Cómo comes hoy?",
+    eyebrow: 'Pregunta 2 de 3',
+    title: '¿Cómo comes hoy?',
     options: [
-      { id: 'poco', label: 'Poco pero frecuente', icon: '⭕' },
-      { id: 'normal', label: 'Normal', icon: '🍽️' },
-      { id: 'snacks', label: 'Solo snacks', icon: '🍿' }
+      { id: 'poco',    label: 'Poco & frecuente', sublabel: 'Pequeñas porciones',      icon: '⭕' },
+      { id: 'normal',  label: 'Normal',            sublabel: 'Como de costumbre',       icon: '🍽️' },
+      { id: 'snacks',  label: 'Solo snacks',       sublabel: 'Picoteo durante el día',  icon: '🍿' },
     ]
   },
   {
-    title: "3. ¿Qué valoras más?",
+    eyebrow: 'Pregunta 3 de 3',
+    title: '¿Qué valoras más?',
     options: [
-      { id: 'proteina', label: 'Proteína', icon: '💪' },
-      { id: 'natural', label: 'Natural', icon: '🌿' },
-      { id: 'bajo_azucar', label: 'Bajo en azúcar', icon: '🧊' }
+      { id: 'proteina',    label: 'Proteína',    sublabel: 'Alto en proteínas',       icon: '💪' },
+      { id: 'natural',     label: 'Natural',      sublabel: 'Ingredientes limpios',    icon: '🌿' },
+      { id: 'bajo_azucar', label: 'Bajo azúcar', sublabel: 'Sin excesos de dulce',    icon: '🧊' },
     ]
   }
 ];
@@ -34,10 +37,8 @@ const QuizScreen = ({ onComplete }) => {
 
   const handleOptionClick = (optionId) => {
     if (animating) return;
-    
     setAnimating(true);
     const newAnswers = [...answers, optionId];
-    
     setTimeout(() => {
       if (currentQuestion < questions.length - 1) {
         setAnswers(newAnswers);
@@ -46,50 +47,86 @@ const QuizScreen = ({ onComplete }) => {
       } else {
         onComplete(newAnswers);
       }
-    }, 300);
+    }, 280);
   };
 
   const q = questions[currentQuestion];
 
   return (
     <div className="screen" key={currentQuestion}>
-      <div className="top-header" style={{ justifyContent: 'center', marginBottom: '1rem' }}>
-        <div className="puratos-logo-text" style={{fontSize: '1.5rem'}}>Puratos</div>
+      {/* Background */}
+      <div className="quiz-screen-bg" />
+
+      {/* Robot: background decoration only — very subtle, behind everything */}
+      <div className="quiz-robot-bg">
+        <img src="/robot.png" className="quiz-robot-bg-img" alt="" aria-hidden="true" />
       </div>
-      
-      <div className="progress-container">
-        {[0, 1, 2].map((idx) => (
-          <React.Fragment key={idx}>
-            <div className={`progress-node ${idx <= currentQuestion ? 'active' : ''}`}>
-              {idx + 1}
-            </div>
-            {idx < 2 && (
-              <div className={`progress-line ${idx < currentQuestion ? 'filled' : ''}`} />
-            )}
-          </React.Fragment>
-        ))}
+
+      {/* Header */}
+      <div className="top-header">
+        <div className="tt-logo-container">
+          <img src="/unicorn-white.png" className="tt-unicorn-icon" alt="Puratos Unicorn" />
+          <div className="tt-brand-name">
+            <span className="tt-brand-taste">taste</span>
+            <span className="tt-brand-tomorrow">Tomorrow</span>
+          </div>
+        </div>
       </div>
-      
-      <div className="quiz-content">
-        <h2 className="question-title">{q.title}</h2>
-        
-        <div className="quiz-options">
-          {q.options.map((opt) => (
-            <button 
-              key={opt.id} 
-              className={`quiz-option-card ${animating ? 'disabled' : ''}`}
-              onClick={() => handleOptionClick(opt.id)}
-            >
-              <div className="option-icon">{opt.icon}</div>
-              {opt.label}
-            </button>
+
+      {/* Progress Bar */}
+      <div className="progress-wrapper">
+        <div className="progress-header">
+          <span className="progress-label">Tu perfil</span>
+          <span className="progress-count">{currentQuestion + 1} / {questions.length}</span>
+        </div>
+        <div className="progress-track">
+          <div
+            className="progress-fill"
+            style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+          />
+        </div>
+        <div className="progress-dots">
+          {questions.map((_, idx) => (
+            <div
+              key={idx}
+              className={`progress-dot ${idx === currentQuestion ? 'active' : idx < currentQuestion ? 'done' : ''}`}
+            />
           ))}
         </div>
       </div>
 
-      <div className="footer-bar">
-        <img src="/robot.png" className="footer-robot" alt="Purabot" />
-        <div className="footer-text">Pregunta {currentQuestion + 1} de 3</div>
+      {/* Centered content — options are the hero */}
+      <div className="quiz-body">
+        <div className="quiz-center">
+          <p className="question-eyebrow">{q.eyebrow}</p>
+          <h2 className="question-title">{q.title}</h2>
+
+          <div className="quiz-options">
+            {q.options.map((opt) => (
+              <button
+                key={opt.id}
+                className={`quiz-option-card ${animating ? 'disabled' : ''}`}
+                onClick={() => handleOptionClick(opt.id)}
+                disabled={animating}
+              >
+                <div className="option-icon-wrapper">{opt.icon}</div>
+                <div className="option-text-block">
+                  <div className="option-label">{opt.label}</div>
+                  <div className="option-sublabel">{opt.sublabel}</div>
+                </div>
+                <div className="option-arrow">›</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="quiz-footer">
+        <div className="quiz-footer-brand">
+          <img src="/unicorn-white.png" className="quiz-footer-unicorn" alt="Puratos" />
+          <span className="quiz-footer-text">by Puratos</span>
+        </div>
       </div>
     </div>
   );

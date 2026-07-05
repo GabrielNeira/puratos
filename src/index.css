@@ -1,14 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Barlow+Condensed:wght@700;800;900&display=swap');
 
 :root {
-  --puratos-bg: #FDF8F5; /* Warm beige */
-  --puratos-burgundy: #6B1C23; /* Dark red */
-  --puratos-orange: #D68B35;
-  --puratos-yellow: #E2B240;
-  --puratos-white: #FFFFFF;
-  --puratos-gray: #E8E2DE;
-  --text-main: #333333;
-  --text-light: #777777;
+  /* Puratos / Taste Tomorrow Brand Colors */
+  --tt-red: #DA0D32;
+  --tt-red-dark: #A80926;
+  --tt-red-deeper: #7A0618;
+  --tt-red-light: #FF1940;
+  --tt-white: #FFFFFF;
+  --tt-off-white: #FFF5F5;
+  --tt-cream: #FDF0EC;
+  --tt-gray-light: #F5E8E8;
+  --tt-gray: #D4B5B5;
+  --tt-dark: #1A0508;
+  --tt-text-on-red: rgba(255,255,255,0.85);
+
+  /* Font */
+  --font-main: 'Barlow', sans-serif;
+  --font-display: 'Barlow Condensed', sans-serif;
 }
 
 * {
@@ -17,10 +25,15 @@
   padding: 0;
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--puratos-bg);
-  color: var(--text-main);
+  font-family: var(--font-main);
+  background-color: var(--tt-red-deeper);
+  color: var(--tt-white);
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
@@ -34,4 +47,13 @@ button {
   font-family: inherit;
   outline: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(ellipse at 30% 0%, #FF1940 0%, #DA0D32 30%, #7A0618 70%, #3D0009 100%);
 }

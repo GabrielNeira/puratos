@@ -3,30 +3,67 @@ import React from 'react';
 const WelcomeScreen = ({ onStart }) => {
   return (
     <div className="screen">
+      {/* Background layers */}
+      <div className="welcome-bg" />
+      <div className="welcome-bg-pattern" />
+
+      {/* Header */}
       <div className="top-header">
-        <div className="puratos-logo-text">Puratos</div> {/* Logo placeholder */}
-      </div>
-      
-      <div className="welcome-content">
-        <h2 className="welcome-greeting">Hola, soy Purabot 👋</h2>
-        <p className="welcome-subgreeting">Estoy aquí para ayudarte a encontrar tu opción ideal.</p>
-        
-        <img src="/robot.png" className="robot-image-huge" alt="Purabot" />
-        
-        <div className="welcome-form-overlay">
-          <h1 className="title-main">¿Quieres disfrutar...<br/>pero de forma más<br/>inteligente?</h1>
-          
-          <div className="pill-buttons">
-            <button className="btn-pill btn-burgundy" onClick={onStart}>
-              <span className="icon">🧁</span> Tengo antojo
-            </button>
-            <button className="btn-pill btn-orange" onClick={onStart}>
-              <span className="icon">🍃</span> Quiero algo saludable
-            </button>
-            <button className="btn-pill btn-yellow" onClick={onStart}>
-              <span className="icon">⚖️</span> Quiero balance
-            </button>
+        <div className="tt-logo-container">
+          <img src="/unicorn-white.png" className="tt-unicorn-icon" alt="Puratos Unicorn" />
+          <div className="tt-brand-name">
+            <span className="tt-brand-taste">taste</span>
+            <span className="tt-brand-tomorrow">Tomorrow</span>
           </div>
+        </div>
+        <div className="header-badge">Chile 2026</div>
+      </div>
+
+      {/* Two-column body */}
+      <div className="welcome-content">
+        <div className="welcome-inner">
+
+          {/* LEFT — headline + CTAs */}
+          <div className="welcome-left">
+            <p className="welcome-eyebrow">by Puratos · Evento exclusivo</p>
+            <h1 className="welcome-headline">
+              Descubre
+              <span className="accent">tu mejor</span>
+              opción
+            </h1>
+            <p className="welcome-subtitle">
+              Responde 3 preguntas y Purabot te encontrará el producto
+              perfecto para ti hoy.
+            </p>
+
+            <p className="cta-label">¿Qué buscas hoy?</p>
+            <div className="cta-buttons">
+              <button className="cta-btn cta-btn-primary" onClick={onStart}>
+                <div className="cta-btn-icon">🧁</div>
+                <span className="cta-btn-label">Tengo un antojo</span>
+                <span className="cta-btn-arrow">›</span>
+              </button>
+              <button className="cta-btn cta-btn-secondary" onClick={onStart}>
+                <div className="cta-btn-icon">🍃</div>
+                <span className="cta-btn-label">Quiero algo saludable</span>
+                <span className="cta-btn-arrow">›</span>
+              </button>
+              <button className="cta-btn cta-btn-tertiary" onClick={onStart}>
+                <div className="cta-btn-icon">⚖️</div>
+                <span className="cta-btn-label">Busco balance</span>
+                <span className="cta-btn-arrow">›</span>
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT — Purabot robot */}
+          <div className="welcome-right">
+            <div className="purabot-container">
+              <img src="/robot.png" className="purabot-img" alt="Purabot" />
+              <div className="purabot-shadow" />
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
