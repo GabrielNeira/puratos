@@ -1,4 +1,8 @@
 import React from 'react';
+import logoImg    from '/tt-logo-white.png';
+import imgMuffin  from '/prod-muffin.jpg';
+import imgBread   from '/prod-bread.jpg';
+import imgChoco   from '/prod-choco.jpg';
 
 /* Checkmark SVG para el badge */
 const CheckIcon = () => (
@@ -21,21 +25,21 @@ const PROFILES = {
     product: 'Muffin Funcional',
     message: 'Te da saciedad y energía sin exceso. Perfecto para tu día en el evento.',
     booth:   'Disfrutar Mejor',
-    image:   '/prod-muffin.jpg',
+    image:   imgMuffin,
   },
   light: {
     type:    'Light & Smart',
     product: 'Snack Clean Label',
     message: 'Snack pequeño clean label. Perfecto para comer menos pero mejor.',
     booth:   'Disfrutar Mejor',
-    image:   '/prod-bread.jpg',
+    image:   imgBread,
   },
   indulgent: {
     type:    'Smart Indulgent',
     product: 'Mini Brownie Protein + Fiber',
     message: 'Mismo placer, más nutrición por bocado.',
     booth:   'Disfrutar Mejor',
-    image:   '/prod-choco.jpg',
+    image:   imgChoco,
   },
 };
 
@@ -48,7 +52,7 @@ const ResultScreen = ({ profile: profileKey, onRestart }) => {
       {/* Header */}
       <div className="result-header">
         <img
-          src="/tt-logo-white.png"
+          src={logoImg}
           className="puratos-logo-img-red"
           alt="Puratos"
           style={{

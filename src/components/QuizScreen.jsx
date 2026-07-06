@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import robotImg from '/robot.png';
+import logoImg from '/tt-logo-white.png';
 
 /* ── SVG icons inline ─────────────────────────────────────── */
 const IconEnergy = () => (
@@ -111,7 +113,7 @@ const QuizScreen = ({ onComplete }) => {
 
       {/* Header */}
       <div className="quiz-header">
-        <img src="/tt-logo-white.png" className="puratos-logo-img-red" alt="Puratos"
+        <img src={logoImg} className="puratos-logo-img-red" alt="Puratos"
           style={{ filter: 'brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(700%) hue-rotate(330deg) brightness(85%)' }}
         />
       </div>
@@ -160,7 +162,7 @@ const QuizScreen = ({ onComplete }) => {
         <span className="quiz-footer-label">
           Pregunta {current + 1} de {questions.length}
         </span>
-        <img src="/robot.png" className="quiz-footer-robot" alt="" aria-hidden="true" />
+        <img src={robotImg} className="quiz-footer-robot" alt="" aria-hidden="true" />
       </div>
 
     </div>
