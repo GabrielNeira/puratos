@@ -1,8 +1,8 @@
 import React from 'react';
-import logoImg    from '/tt-logo-white.png';
-import imgMuffin  from '/prod-muffin.jpg';
-import imgBread   from '/prod-bread.jpg';
-import imgChoco   from '/prod-choco.jpg';
+import logoImg from '/tt-logo-white.png';
+import imgBrownie from '/Brownie.png';
+import imgMuffin from '/Queque.png';
+import imgBarrita from '/Barrita_de_cereal.png';
 
 /* Checkmark SVG para el badge */
 const CheckIcon = () => (
@@ -21,62 +21,58 @@ const PinIcon = () => (
 /* Perfiles */
 const PROFILES = {
   balanced: {
+    key:     'balanced',
     type:    'Balanced Energy',
     product: 'Muffin Funcional',
-    message: 'Te da saciedad y energía sin exceso. Perfecto para tu día en el evento.',
+    message: 'Te da saciedad y energía sin exceso.',
     booth:   'Disfrutar Mejor',
     image:   imgMuffin,
   },
   light: {
+    key:     'light',
     type:    'Light & Smart',
-    product: 'Snack Clean Label',
-    message: 'Snack pequeño clean label. Perfecto para comer menos pero mejor.',
+    product: 'Snack Pequeño Clean Label',
+    message: 'Perfecto para comer menos pero mejor.',
     booth:   'Disfrutar Mejor',
-    image:   imgBread,
+    image:   imgBarrita,
   },
   indulgent: {
+    key:     'indulgent',
     type:    'Smart Indulgent',
-    product: 'Mini Brownie Protein + Fiber',
+    product: 'Mini Brownie Protein & Fiber',
     message: 'Mismo placer, más nutrición por bocado.',
     booth:   'Disfrutar Mejor',
-    image:   imgChoco,
+    image:   imgBrownie,
   },
 };
 
-const ResultScreen = ({ profile: profileKey, onRestart }) => {
+const ResultScreen = ({ profile: profileKey, onContinue }) => {
   const profile = PROFILES[profileKey] || PROFILES.balanced;
+  const themeClass = `theme-${profile.key}`;
 
   return (
-    <div className="screen result-screen">
-
+    <div className={`screen result-screen ${themeClass}`}>
       {/* Header */}
       <div className="result-header">
-        <img
-          src={logoImg}
-          className="puratos-logo-img-red"
-          alt="Puratos"
-          style={{
-            height: 'clamp(26px, 3.2vh, 40px)',
-            width: 'auto',
-            objectFit: 'contain',
-            filter: 'brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(700%) hue-rotate(330deg) brightness(85%)',
-          }}
-        />
+        <div className="puratos-logo-wrap-red">
+          <img src={logoImg} className="puratos-logo-img-red" alt="Puratos" />
+          <p className="quiz-eyebrow">Food Innovation for Good</p>
+        </div>
       </div>
 
       {/* Body */}
-      <div className="result-body">
-
+      <div className="result-body animate-fade-in">
+        
         {/* Izquierda — texto */}
         <div className="result-left">
           <p className="result-eyebrow">Tu mejor opción es...</p>
 
-          {/* Badge pill rojo */}
+          {/* Badge pill */}
           <div className="result-badge">
             <div className="result-badge-check">
               <CheckIcon />
             </div>
-            {profile.type}
+            <span className="result-badge-text">{profile.type}</span>
           </div>
 
           <h2 className="result-product-name">{profile.product}</h2>
@@ -85,12 +81,12 @@ const ResultScreen = ({ profile: profileKey, onRestart }) => {
           <div className="result-location">
             <span className="result-location-label">
               <PinIcon />
-              Encuéntralo en la estación
+              Encuéntralo en la estación:
             </span>
             <span className="result-location-value">{profile.booth}</span>
           </div>
 
-          <button className="result-continue-btn" onClick={onRestart}>
+          <button className="result-continue-btn" onClick={onContinue}>
             Continuar
           </button>
         </div>

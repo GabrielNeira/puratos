@@ -3,6 +3,7 @@ import './App.css'
 import WelcomeScreen from './components/WelcomeScreen'
 import QuizScreen from './components/QuizScreen'
 import ResultScreen from './components/ResultScreen'
+import ShareScreen from './components/ShareScreen'
 
 // ─── Metrics helpers ────────────────────────────────────────────────────────
 const METRICS_KEY = 'tt_quiz_metrics'
@@ -60,8 +61,26 @@ function exportCSV(metrics) {
 
 // ────────────────────────────────────────────────────────────────────────────
 
+const profileDetails = {
+  balanced: {
+    type:    'Balanced Energy',
+    product: 'Muffin Funcional',
+    message: 'Te da saciedad y energía sin exceso.',
+  },
+  light: {
+    type:    'Light & Smart',
+    product: 'Snack Pequeño Clean Label',
+    message: 'Perfecto para comer menos pero mejor.',
+  },
+  indulgent: {
+    type:    'Smart Indulgent',
+    product: 'Mini Brownie Protein & Fiber',
+    message: 'Mismo placer, más nutrición por bocado.',
+  },
+};
+
 function App() {
-  const [step, setStep] = useState(0) // 0: welcome, 1: quiz, 2: result
+  const [step, setStep] = useState(0) // 0: welcome, 1: quiz, 2: result, 3: share
   const [answers, setAnswers] = useState([])
   const [currentProfile, setCurrentProfile] = useState(null)
 
@@ -83,6 +102,10 @@ function App() {
     setStep(2)
   }, [])
 
+  const handleGoToShare = useCallback(() => {
+    setStep(3)
+  }, [])
+
   const restartQuiz = useCallback(() => {
     setStep(0)
     setAnswers([])
@@ -93,6 +116,8 @@ function App() {
     exportCSV(loadMetrics())
   }, [])
 
+  const currentDetails = profileDetails[currentProfile] || profileDetails.balanced;
+
   return (
     <div className="app-container">
       {step === 0 && <WelcomeScreen onStart={startQuiz} />}
@@ -100,7 +125,15 @@ function App() {
       {step === 2 && (
         <ResultScreen
           profile={currentProfile}
-          onRestart={restartQuiz}
+          onContinue={handleGoToShare}
+        />
+      )}
+      {step === 3 && (
+        <ShareScreen
+          profileName={currentDetails.type}
+          productName={currentDetails.product}
+          message={currentDetails.message}
+          onFinish={restartQuiz}
         />
       )}
 

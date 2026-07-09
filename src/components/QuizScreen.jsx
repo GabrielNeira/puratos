@@ -60,7 +60,7 @@ const IconLowSugar = () => (
 /* ── Preguntas ────────────────────────────────────────────── */
 const questions = [
   {
-    title: '1. ¿Qué buscas hoy?',
+    title: '¿QUÉ BUSCAS HOY?',
     options: [
       { id: 'energia',     label: 'Energía',      sublabel: 'Activo y concentrado',   Icon: IconEnergy },
       { id: 'saciedad',    label: 'Saciedad',     sublabel: 'Alimentarme bien',        Icon: IconSatiety },
@@ -68,7 +68,7 @@ const questions = [
     ],
   },
   {
-    title: '2. ¿Cómo comes hoy?',
+    title: '¿CÓMO COMES HOY?',
     options: [
       { id: 'poco',   label: 'Poco pero frecuente', sublabel: 'Pequeñas porciones',     Icon: IconFew },
       { id: 'normal', label: 'Normal',               sublabel: 'Como de costumbre',      Icon: IconNormal },
@@ -76,7 +76,7 @@ const questions = [
     ],
   },
   {
-    title: '3. ¿Qué valoras más?',
+    title: '¿QUÉ VALORAS MÁS?',
     options: [
       { id: 'proteina',    label: 'Proteína',    sublabel: 'Alto en proteínas',      Icon: IconProtein },
       { id: 'natural',     label: 'Natural',     sublabel: 'Ingredientes limpios',   Icon: IconNatural },
@@ -103,22 +103,22 @@ const QuizScreen = ({ onComplete }) => {
       } else {
         onComplete(next);
       }
-    }, 260);
+    }, 280);
   };
 
   const q = questions[current];
 
   return (
     <div className="screen quiz-screen" key={current}>
-
       {/* Header */}
       <div className="quiz-header">
-        <img src={logoImg} className="puratos-logo-img-red" alt="Puratos"
-          style={{ filter: 'brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(700%) hue-rotate(330deg) brightness(85%)' }}
-        />
+        <div className="puratos-logo-wrap-red">
+          <img src={logoImg} className="puratos-logo-img-red" alt="Puratos" />
+          <p className="quiz-eyebrow">Food Innovation for Good</p>
+        </div>
       </div>
 
-      {/* Step indicator */}
+      {/* Step Indicator */}
       <div className="step-indicator">
         {questions.map((_, i) => (
           <React.Fragment key={i}>
@@ -140,7 +140,7 @@ const QuizScreen = ({ onComplete }) => {
           {q.options.map(({ id, label, sublabel, Icon }) => (
             <button
               key={id}
-              className="quiz-option"
+              className="quiz-option animate-fade-in"
               onClick={() => handleOption(id)}
               disabled={animating}
             >
@@ -157,14 +157,13 @@ const QuizScreen = ({ onComplete }) => {
         </div>
       </div>
 
-      {/* Footer rojo */}
+      {/* Footer */}
       <div className="quiz-footer">
         <span className="quiz-footer-label">
           Pregunta {current + 1} de {questions.length}
         </span>
-        <img src={robotImg} className="quiz-footer-robot" alt="" aria-hidden="true" />
+        <img src={robotImg} className="quiz-footer-robot" alt="PuraBot" aria-hidden="true" />
       </div>
-
     </div>
   );
 };
